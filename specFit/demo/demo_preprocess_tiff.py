@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-"""
-For usage, see
-  python demo_preprocess_tiff.py --help
+
+desc = """
+Generates a sequence of test images and uses them to create the files needed by
+specFit: dataCube.npy, visual.npy, exposures.npy, and timestamps.npy.
 """
 
 import os
@@ -11,12 +12,12 @@ from PIL import Image
 
 prefix = 'preProcessDemo'  # Image file name prefix.
 
-parser = argparse.ArgumentParser(description='demo_preprocess_tiff.py')
-parser.add_argument('--processed_dir', type=str, default='images/processed/demo')
-parser.add_argument('--raw_dir', type=str, default='images/raw/demo')
-parser.add_argument('--Nfiles', type=int, default=256)
-parser.add_argument('--Nx', type=int, default=7)
-parser.add_argument('--Ny', type=int, default=7)
+parser = argparse.ArgumentParser(description=desc, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+parser.add_argument('--processed_dir', type=str, default='images/processed/demo', help='Directory place generated .npy files')
+parser.add_argument('--raw_dir', type=str, default='images/raw/demo', help='Directory to store generated images')
+parser.add_argument('--Nfiles', type=int, default=256, help='Number of images to generate')
+parser.add_argument('--Nx', type=int, default=7, help='Number of horizontal pixels')
+parser.add_argument('--Ny', type=int, default=7, help='Number of vertical pixels')
 parser.add_argument('--spectra_type', type=int, default=1, help='Spectra of test images.')
 
 args = parser.parse_args()
