@@ -42,10 +42,10 @@ def test_file_dimensions(Nfiles):
 def test_periodic(Nfiles):
     """Test that image intensities have periodic features."""
     data = np.load(os.path.join(processed_dir(Nfiles), 'dataCube.npy'))[0, 0]
-    # TODO: Would be better to extract time series of intensities and
-    # compare to sine wave.
-    assert data[0] == data[data.size//2]
-    assert data[data.size//8] == data[data.size//8 + data.size//2]
+    ts = np.linspace(0, Nfiles-1, Nfiles)
+    sin = 128*np.sin(4*np.pi*ts/Nfiles) + 127
+    assert (data - sin).sum() <= Nfiles
+    
 
 #def test_average():
     # TODO: Test that visual average is zero?
