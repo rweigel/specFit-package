@@ -1,6 +1,6 @@
 import os
-import numpy as np
 import pytest
+import numpy as np
 
 Nfiles = [3, 4, 255, 256]
 Nx = 7
@@ -10,15 +10,17 @@ spectra_type = 1
 def raw_dir(Nfiles):
     return os.path.join('tmp', 'images', 'raw', str(Nfiles))
 
+
 def processed_dir(Nfiles):
     return os.path.join('tmp', 'images', 'processed', str(Nfiles))
+
 
 @pytest.mark.parametrize("Nfiles", Nfiles)
 def test_file_creation(Nfiles):
     """Test files needed by specFit have been created"""
     command = ('python specFit/demo/demo_preprocess_tiff.py '
                '--processed_dir {} --raw_dir {} --Nfiles {} --Nx {} --Ny {} --spectra_type {}')\
-                .format(processed_dir(Nfiles), raw_dir(Nfiles), Nfiles, Nx, Ny, spectra_type)
+               .format(processed_dir(Nfiles), raw_dir(Nfiles), Nfiles, Nx, Ny, spectra_type)
     os.system(command)
     assert os.path.exists(os.path.join(processed_dir(Nfiles), 'dataCube.npy'))
     assert os.path.exists(os.path.join(processed_dir(Nfiles), 'timestamps.npy'))
